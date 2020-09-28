@@ -2,8 +2,11 @@ import Blog from "./views/Blog.js";
 import Home from "./views/Home.js";
 import Portfolio from "./views/Portfolio.js";
 
-const navigateTo = (uri) => {
-	history.pushState(null, null, uri);
+const BASE_URL = "/spa-markdown-blog";
+// const BASE_URL = "";
+
+const navigateTo = (url) => {
+	history.pushState(null, null, url);
 	router();
 };
 
@@ -17,7 +20,7 @@ const router = () => {
 	const potentialMatches = routes.map((potentialMatch) => {
 		return {
 			route: potentialMatch,
-			isMatch: location.pathname === potentialMatch.path,
+			isMatch: location.pathname === BASE_URL + potentialMatch.path,
 		};
 	});
 
@@ -44,7 +47,7 @@ function init() {
 
 		if (anchor) {
 			event.preventDefault();
-			navigateTo(anchor.href);
+			navigateTo(anchor.origin + BASE_URL + anchor.pathname);
 		}
 	});
 }
