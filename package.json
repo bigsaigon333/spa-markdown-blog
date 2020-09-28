@@ -4,14 +4,16 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "serve public -l 3000",
-		"devStart": "serve src -d --cors -l 3000",
+		"start": "node server.js",
+		"devStart": "serve src -d -s --cors -l 3000",
 		"deploy": "gh-pages -d src"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"express": "^4.17.1",
+		"path": "^0.12.7",
 		"serve": "^11.3.2"
 	},
 	"devDependencies": {
