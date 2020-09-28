@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node server.js",
 		"devStart": "serve src -d -s --cors -l 3000",
-		"deploy": "gh-pages -d src"
+		"deploy": "git push && gh-pages -d src"
 	},
 	"keywords": [],
 	"author": "",
