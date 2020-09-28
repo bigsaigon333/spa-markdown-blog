@@ -8,4 +8,12 @@
 	<body>
 		<h1>404.html inside src</h1>
 	</body>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", (event) => {
+			const BASENAME = "/spa-markdown-blog";
+			// window.history.pushState(null, null, BASENAME + "/");
+			location.pathname = BASENAME + "/";
+		});
+	</script>
 </html>
