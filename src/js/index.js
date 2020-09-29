@@ -52,8 +52,9 @@ const router = () => {
 function init() {
 	const params = getParams();
 	if (params["redirect_url"]) {
-		window.history.replaceState(null, null, params["redirect_url"]);
+		window.history.replaceState(null, null, BASE_URL + params["redirect_url"]);
 	}
+	console.log(location.pathname);
 
 	router();
 	document.body.addEventListener("click", (event) => {

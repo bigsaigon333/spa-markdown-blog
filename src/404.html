@@ -8,11 +8,14 @@
 			// const BASE_URL = "";
 
 			const match = location.pathname.match(`${BASE_URL}(\/.+)`);
-			const REDIRECT_URL = match[1];
+			let REDIRECT_URL = BASE_URL;
 
+			if (match) {
+				REDIRECT_URL = `${BASE_URL}/?redirect_url=${match[1]}`;
+			}
+
+			location.replace(REDIRECT_URL);
 			// console.log(match);
-
-			location.replace(`${BASE_URL}/?redirect_url=${REDIRECT_URL}`);
 		</script>
 		<title>404.html</title>
 	</head>
