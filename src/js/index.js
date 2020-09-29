@@ -2,8 +2,8 @@ import Blog from "./views/Blog.js";
 import Home from "./views/Home.js";
 import Portfolio from "./views/Portfolio.js";
 
-// const BASE_URL = "/spa-markdown-blog";
-const BASE_URL = "";
+const BASE_URL = "/spa-markdown-blog";
+// const BASE_URL = "";
 
 const getParams = () => {
 	const re = new RegExp(/([^\=?&]+)\=([^\&]+)/g);
