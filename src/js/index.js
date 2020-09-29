@@ -2,8 +2,20 @@ import Blog from "./views/Blog.js";
 import Home from "./views/Home.js";
 import Portfolio from "./views/Portfolio.js";
 
-const BASE_URL = "/spa-markdown-blog";
-// const BASE_URL = "";
+// const BASE_URL = "/spa-markdown-blog";
+const BASE_URL = "";
+
+const getParams = () => {
+	const re = new RegExp(/([^\=?&]+)\=([^\&]+)/g);
+
+	const tmp = [];
+	for (let match of location.search.matchAll(re)) {
+		const [, key, value] = match;
+		tmp.push([key, value]);
+	}
+
+	return Object.fromEntries(tmp);
+};
 
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
@@ -38,6 +50,11 @@ const router = () => {
 };
 
 function init() {
+	const params = getParams();
+	if (params["redirect_url"]) {
+		window.history.replaceState(null, null, params["redirect_url"]);
+	}
+
 	router();
 	document.body.addEventListener("click", (event) => {
 		const path = event.path;
