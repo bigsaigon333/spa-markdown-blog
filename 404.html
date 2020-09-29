@@ -5,8 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script>
 			const BASE_URL = "/spa-markdown-blog";
-			// window.history.pushState(null, null, BASENAME + "/");
-			location.replace(BASE_URL + "/");
+			// const BASE_URL = "";
+
+			const match = location.pathname.match(`${BASE_URL}(\/.+)`);
+			const REDIRECT_URL = match[1];
+
+			// console.log(match);
+
+			location.replace(`${BASE_URL}/?redirect_url=${REDIRECT_URL}`);
 		</script>
 		<title>404.html</title>
 	</head>
