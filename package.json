@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node server.js",
-		"devStart": "serve src -d -s --cors -l 3000",
+		"devStart": "nodemon server.js",
 		"deploy": "git push && gh-pages -d src"
 	},
 	"keywords": [],
@@ -13,10 +13,20 @@
 	"license": "ISC",
 	"dependencies": {
 		"express": "^4.17.1",
+		"mongoose": "^5.10.7",
 		"path": "^0.12.7",
 		"serve": "^11.3.2"
 	},
 	"devDependencies": {
-		"gh-pages": "^3.1.0"
+		"gh-pages": "^3.1.0",
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.4"
+	},
+	"nodemonConfig": {
+		"ignore": ["src/*"],
+		"delay": "2500"
+	  },
+	"backup": {
+		"devStart": "serve src -d -s --cors -l 3000"
 	}
 }

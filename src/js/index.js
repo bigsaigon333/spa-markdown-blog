@@ -1,9 +1,10 @@
 import Blog from "./views/Blog.js";
 import Home from "./views/Home.js";
 import Portfolio from "./views/Portfolio.js";
+import New from "./views/New.js";
 
-const BASE_URL = "/spa-markdown-blog";
-// const BASE_URL = "";
+// const BASE_URL = "/spa-markdown-blog";
+const BASE_URL = "";
 
 const getParams = () => {
 	const re = new RegExp(/([^\=?&]+)\=([^\&]+)/g);
@@ -22,11 +23,12 @@ const navigateTo = (url) => {
 	router();
 };
 
-const router = () => {
+const router = async () => {
 	const routes = [
 		{ path: "/", view: Home },
 		{ path: "/portfolio", view: Portfolio },
 		{ path: "/blog", view: Blog },
+		{ path: "/new", view: New },
 	];
 
 	const potentialMatches = routes.map((potentialMatch) => {
@@ -46,15 +48,16 @@ const router = () => {
 	}
 
 	const view = new match.route.view();
-	document.querySelector("#app").innerHTML = view.getHtml();
+
+	document.querySelector("#app").innerHTML = await view.getHtml();
 };
 
-function init() {
+async function init() {
 	const params = getParams();
 	if (params["redirect_url"]) {
 		window.history.replaceState(null, null, BASE_URL + params["redirect_url"]);
 	}
-	console.log(location.pathname);
+	// console.log(location.pathname);
 
 	router();
 	document.body.addEventListener("click", (event) => {
