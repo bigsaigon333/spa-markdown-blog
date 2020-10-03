@@ -43,6 +43,16 @@ server.get("/blog_list.json", async (req, res) => {
 	}
 });
 
+server.get("/blog_list.json/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		const Post = await Blog.findById(id);
+		res.status(200).json(Post);
+	} catch (error) {
+		res.status(400).json({ error: "Something goes wrong" + error });
+	}
+});
+
 server.use((req, res) => {
 	res.status(404).sendFile(path.resolve(__dirname, "src", "404.html"));
 });
