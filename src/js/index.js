@@ -1,3 +1,4 @@
+import Edit from "./views/Edit.js";
 import Home from "./views/Home.js";
 import New from "./views/New.js";
 import Post from "./views/Post.js";
@@ -6,7 +7,9 @@ import Post from "./views/Post.js";
 const BASE_URL = "";
 
 const pathToRegex = (path) =>
-	new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+	new RegExp(
+		"^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "([^/]+)") + "$"
+	);
 
 const getParams = (match) => {
 	const values = match.result.slice(1);
@@ -45,6 +48,7 @@ const router = async () => {
 		// { path: "/blog", view: Blog },
 		{ path: "/new", view: New },
 		{ path: "/:id", view: Post },
+		{ path: "/:id/edit", view: Edit },
 	];
 
 	const potentialMatches = routes.map((route) => {

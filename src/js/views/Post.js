@@ -1,3 +1,4 @@
+import { getFormattedDate } from "../tools.js";
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
@@ -18,6 +19,8 @@ export default class extends AbstractView {
 
 			if (!res.ok) throw new Error("Network Connection Error");
 			const data = await res.json();
+			// console.log(this);
+			this.post = data;
 			return data;
 		} catch (error) {
 			console.error(error);
@@ -32,19 +35,19 @@ export default class extends AbstractView {
 
 		// return `${post.description}`
 
-		const { title, createdAt, description, lastEditedAt } = post;
+		const { _id: id, title, createdAt, description, lastEditedAt } = post;
 
 		return `<article class="blog-container">
 			<h1 class="blog__title">${title}</h1>
-		<h3 class="blog__createdAt">최초 작성일: ${new Date(
-			createdAt
-		).toLocaleString()}</h3>
-		<h3 class="blog__createdAt">마지막 수정일: ${new Date(
+		<h3 class="blog__createdAt">최초 작성일: ${getFormattedDate(createdAt)}</h3>
+		<h3 class="blog__createdAt">마지막 수정일: ${getFormattedDate(
 			lastEditedAt
-		).toLocaleString()}</h3>
+		)}</h3>
 		<p class="blog__description">${description}</p>
 		</article>
-		<a href="#" data-link>Edit</a>  
-		<a href="/" data-link>Home으로 돌아가기</a>`;
+		<div class="btn-container">
+			<a href="${id}/edit" data-link class="btn-container__btn">Edit</a>  
+			<a href="/" data-link class="btn-container__btn btn-container__btn--large">Home으로 돌아가기</a>
+		</div>`;
 	}
 }

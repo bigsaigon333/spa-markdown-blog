@@ -1,0 +1,34 @@
+.btn-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.btn-container--flow-reverse {
+	flex-flow: column-reverse;
+}
+
+.btn-container__btn {
+	width: 100px;
+	height: 50px;
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	/* font-weight: 500; */
+	font-size: 1.3rem;
+	background-color: white;
+	color: #283593;
+	cursor: grab;
+}
+.btn-container__btn:hover {
+	background-color: whitesmoke;
+}
+
+.btn-container__btn--large {
+	width: 200px;
+}
+
+.delete-form {
+	transform: translateY(-50px);
+}

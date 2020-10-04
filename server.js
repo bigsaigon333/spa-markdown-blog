@@ -8,6 +8,7 @@ const server = express();
 mongoose.connect("mongodb://localhost:27017/smb", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useFindAndModify: false,
 });
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
@@ -31,6 +32,31 @@ server.post("/new.json", async (req, res) => {
 		res.status(200).json({ success: "success!!" });
 	} catch (error) {
 		res.status(400).json(error);
+	}
+});
+
+server.put("/:id/edit.json", async (req, res) => {
+	const { id } = req.params;
+	const { title, description } = req.body;
+	try {
+		const Post = await Blog.findByIdAndUpdate(id, {
+			title,
+			description,
+			lastEditedAt: Date.now(),
+		});
+		res.status(200).json({ success: "Update succeed!" });
+	} catch (error) {
+		res.status(400).json({ error: "Something goes wrong" + error });
+	}
+});
+
+server.delete("/:id/delete.json", async (req, res) => {
+	const { id } = req.params;
+	try {
+		const Post = await Blog.findByIdAndRemove(id);
+		res.status(200).json({ success: "Delete succeed!" });
+	} catch (error) {
+		res.status(400).json({ error: "Something goes wrong" + error });
 	}
 });
 
