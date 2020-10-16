@@ -31,4 +31,5 @@
 
 .delete-form {
 	transform: translateY(-50px);
+	display: inline-block;
 }

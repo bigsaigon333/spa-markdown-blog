@@ -3,6 +3,8 @@ import Home from "./views/Home.js";
 import New from "./views/New.js";
 import Post from "./views/Post.js";
 
+import "../css/styles.css";
+
 // const BASE_URL = "/spa-markdown-blog";
 const BASE_URL = "";
 

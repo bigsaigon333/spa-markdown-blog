@@ -10,12 +10,9 @@ export default class extends AbstractView {
 
 	async getPost() {
 		try {
-			const res = await fetch(
-				`http://localhost:3000/blog_list.json/${this.props.id}`,
-				{
-					method: "GET",
-				}
-			);
+			const res = await fetch(`${process.env.API_URL}/${this.props.id}`, {
+				method: "GET",
+			});
 
 			if (!res.ok) throw new Error("Network Connection Error");
 			const data = await res.json();
@@ -28,12 +25,9 @@ export default class extends AbstractView {
 	}
 
 	async getHtml() {
-		// const id = this.props.id;
 		const post = await this.getPost();
 
-		// console.log(post);
-
-		// return `${post.description}`
+		const converter = new showdown.Converter();
 
 		const { _id: id, title, createdAt, description, lastEditedAt } = post;
 
@@ -43,7 +37,7 @@ export default class extends AbstractView {
 		<h3 class="blog__createdAt">마지막 수정일: ${getFormattedDate(
 			lastEditedAt
 		)}</h3>
-		<p class="blog__description">${description}</p>
+		<p class="blog__description">${converter.makeHtml(description)}</p>
 		</article>
 		<div class="btn-container">
 			<a href="${id}/edit" data-link class="btn-container__btn">Edit</a>  

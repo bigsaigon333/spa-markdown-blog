@@ -26,7 +26,7 @@ export default class extends AbstractView {
 			console.log(id);
 			// console.log(`http://localhost:3000/${this.props.id}/edit.json`);
 
-			fetch(`http://localhost:3000/${id}/edit.json`, {
+			fetch(`${process.env.API_URL}/${id}`, {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
@@ -57,7 +57,7 @@ export default class extends AbstractView {
 			console.log(id);
 			// console.log(`http://localhost:3000/${this.props.id}/edit.json`);
 
-			fetch(`http://localhost:3000/${id}/delete.json`, {
+			fetch(`${process.env.API_URL}/${id}`, {
 				method: "DELETE",
 				headers: { "Content-Type": "application/json" },
 			})
@@ -80,12 +80,9 @@ export default class extends AbstractView {
 
 	async getPost() {
 		try {
-			const res = await fetch(
-				`http://localhost:3000/blog_list.json/${this.props.id}`,
-				{
-					method: "GET",
-				}
-			);
+			const res = await fetch(`${process.env.API_URL}/${this.props.id}`, {
+				method: "GET",
+			});
 
 			if (!res.ok) throw new Error("Network Connection Error");
 			const data = await res.json();

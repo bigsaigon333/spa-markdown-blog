@@ -1,6 +1,8 @@
 import { getFormattedDate } from "../tools.js";
 import AbstractView from "./AbstractView.js";
 
+// import "../css/blog.css";
+
 export default class extends AbstractView {
 	constructor(params) {
 		super(params);
@@ -9,7 +11,7 @@ export default class extends AbstractView {
 
 	async getBlogList() {
 		try {
-			const res = await fetch("http://localhost:3000/blog_list.json", {
+			const res = await fetch(process.env.API_URL, {
 				method: "GET",
 			});
 			if (!res.ok) throw new Error("Network Connection Error");
@@ -33,7 +35,7 @@ export default class extends AbstractView {
 					<a href="/${id}" data-link>
 					<h1 class="blog__title">${title}</h1>
 				<h3 class="blog__createdAt">${getFormattedDate(createdAt)}</h3>
-				<p class="blog__description">${description}</p>
+				<!-- <p class="blog__description">${description}</p> -->
 				</a>
 				</article>
 				<hr>`

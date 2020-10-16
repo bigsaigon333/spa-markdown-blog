@@ -1,5 +1,6 @@
 import AbstractView from "./AbstractView.js";
 import { navigateTo } from "../index.js";
+// import "../css/new.css";
 
 export default class extends AbstractView {
 	constructor(params) {
@@ -15,12 +16,21 @@ export default class extends AbstractView {
 			// console.log(event.target);
 			if (!confirm("제출하시겠습니까?")) return;
 
+			// const converter = new showdown.Converter();
+
 			const form = document.querySelector(".new-form");
+			// const description = form.querySelector(".new__description");
+			// const text = description.value;
+			// const html = converter.makeHtml(text);
+			// description.value = html;
+
+			// console.log(html);
+
 			const FD = new FormData(form);
 			const body = Object.fromEntries(FD.entries());
 			console.log(body);
 
-			fetch("http://localhost:3000/new.json", {
+			fetch(process.env.API_URL, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
@@ -34,6 +44,7 @@ export default class extends AbstractView {
 				})
 				.then((data) => {
 					console.log(data);
+
 					navigateTo(location.origin);
 
 					// document.removeEventListener("submit", this.submitHandler);
