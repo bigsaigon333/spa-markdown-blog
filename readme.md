@@ -1,5 +1,7 @@
 # Single Page Application - Markdown Blog Project
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b36ac5cb-7c67-4a65-a0d4-5459ad5b57f2/deploy-status)](https://app.netlify.com/sites/elated-mclean-6cb1bd/deploys)
+
 ### Created At : 2020-09-27 Sun 23:21
 
 <br>
@@ -60,3 +62,4 @@
    - textarea.scrollHeight 만큼 css 의 height 값이 변화하도록 수정
 
 13. Readme 를 화면 별로 Issue 나타내게끔 수정
+14. 

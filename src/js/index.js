@@ -75,7 +75,7 @@ const router = async () => {
 	const view = new match.route.view(getParams(match));
 
 	// To Do: 로딩화면 만들기
-	document.querySelector("#app").innerHTML = `<h3>...Loading...</h3>`;
+	document.querySelector("#app").innerHTML = `<h3>...Loading!...</h3>`;
 
 	document.querySelector("#app").innerHTML = await view.getHtml();
 };

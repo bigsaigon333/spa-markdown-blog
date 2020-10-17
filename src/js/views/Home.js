@@ -13,6 +13,7 @@ export default class extends AbstractView {
 		try {
 			const res = await fetch(process.env.API_URL, {
 				method: "GET",
+				mode: "cors",
 			});
 			if (!res.ok) throw new Error("Network Connection Error");
 			const data = await res.json();
