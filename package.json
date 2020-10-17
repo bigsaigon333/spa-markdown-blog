@@ -6,8 +6,7 @@
 	"scripts": {
 		"prestart": "webpack --config webpack.config.js --watch &",
 		"start": "serve build -d -s --cors -l 3000",
-		"build": "webpack --config webpack.config.js",
-		"deploy": "git push && gh-pages -d src"
+		"build": "webpack --config webpack.config.js"
 	},
 	"keywords": [],
 	"author": "Danny Kim",
