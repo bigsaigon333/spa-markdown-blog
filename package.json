@@ -4,8 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"prestart": "webpack --config webpack.config.js --watch &",
 		"start": "serve build -d -s --cors -l 3000",
+		"preDevStart": "webpack --config webpack.config.dev.js --watch &",
+		"devStart": "npm run preDevStart && serve build -d -s --cors -l 3000 ",
 		"build": "webpack --config webpack.config.js"
 	},
 	"keywords": [],
@@ -21,6 +22,7 @@
 		"dotenv-webpack": "^4.0.0",
 		"gh-pages": "^3.1.0",
 		"html-loader": "^1.3.2",
+		"mini-css-extract-plugin": "^1.0.0",
 		"style-loader": "^2.0.0",
 		"webpack": "^5.1.0",
 		"webpack-cli": "^4.0.0"

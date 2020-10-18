@@ -2,11 +2,15 @@ import Edit from "./views/Edit.js";
 import Home from "./views/Home.js";
 import New from "./views/New.js";
 import Post from "./views/Post.js";
+import Loading from "./views/Loading.js";
 
 import "../css/styles.css";
 
 // const BASE_URL = "/spa-markdown-blog";
 const BASE_URL = "";
+
+let currView = "";
+const loadingView = new Loading();
 
 const pathToRegex = (path) =>
 	new RegExp(
@@ -72,33 +76,31 @@ const router = async () => {
 	// console.log(match);
 	// console.log(getParams(match));
 
-	const view = new match.route.view(getParams(match));
+	if (currView) currView.removeEventListener();
 
-	// To Do: 로딩화면 만들기
-	document.querySelector("#app").innerHTML = `<h3>...Loading!...</h3>`;
+	const view = new match.route.view(getParams(match));
+	currView = view;
+
+	document.querySelector("#app").classList.toggle("app--blur");
+	document.querySelector("#app").innerHTML += loadingView.getHtml();
 
 	document.querySelector("#app").innerHTML = await view.getHtml();
+	document.querySelector("#app").classList.toggle("app--blur");
 };
 
 async function init() {
-	const params = getQueries();
-	if (params["redirect_url"]) {
-		window.history.replaceState(null, null, BASE_URL + params["redirect_url"]);
-	}
-	// console.log(location.pathname);
-
 	router();
 
 	document.body.addEventListener("click", (event) => {
-		const path = event.path;
-		path.pop();
-		path.pop();
+		const path = event.path.slice(0, -2);
 		const anchor = path.find((elem) => elem.matches("[data-link]"));
 
 		if (anchor) {
-			// console.log(anchor);
 			event.preventDefault();
-			navigateTo(anchor.origin + BASE_URL + anchor.pathname);
+			console.log(anchor.href);
+			// console.log(anchor.origin + anchor.pathname);
+			// navigateTo(anchor.origin + BASE_URL + anchor.pathname);
+			navigateTo(anchor.href);
 		}
 	});
 }

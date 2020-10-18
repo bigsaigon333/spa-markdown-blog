@@ -1,17 +1,16 @@
 import AbstractView from "./AbstractView.js";
 import { navigateTo } from "../index.js";
 
-export default class extends AbstractView {
+export default class Edit extends AbstractView {
 	constructor(props) {
 		super(props);
 		this.setTitle("Edit");
-		// console.log(this.props.id);
 
-		document.addEventListener("submit", this.submitHandler);
+		this.addEventListener({ submit: this.submitHandler.bind(this) });
 	}
 
 	submitHandler(event) {
-		console.log(event.target.className);
+		// console.log(event.target.className);
 		if (event.target.className == "new-form") {
 			event.preventDefault();
 			// console.log(event.target);
@@ -40,8 +39,8 @@ export default class extends AbstractView {
 				})
 				.then((data) => {
 					console.log(data);
+
 					navigateTo(`${location.origin}/${id}`);
-					// document.removeEventListener("submit", this.submitHandler);
 				})
 				.catch((error) => {
 					console.error(error);
@@ -55,7 +54,6 @@ export default class extends AbstractView {
 
 			const id = event.target.dataset.id;
 			console.log(id);
-			// console.log(`http://localhost:3000/${this.props.id}/edit.json`);
 
 			fetch(`${process.env.API_URL}/${id}`, {
 				method: "DELETE",

@@ -3,11 +3,16 @@ import { navigateTo } from "../index.js";
 // import "../css/new.css";
 
 export default class extends AbstractView {
-	constructor(params) {
-		super(params);
+	constructor(props) {
+		super(props);
 		this.setTitle("New");
+		this.submitHandler = this.submitHandler.bind(this);
 
-		document.addEventListener("submit", this.submitHandler);
+		this.addEventListener({
+			submit: this.submitHandler,
+		});
+
+		// document.addEventListener("submit", this.submitHandler);
 	}
 
 	submitHandler(event) {
@@ -45,9 +50,8 @@ export default class extends AbstractView {
 				.then((data) => {
 					console.log(data);
 
+					document.removeEventListener("submit", this.submitHandler);
 					navigateTo(location.origin);
-
-					// document.removeEventListener("submit", this.submitHandler);
 				})
 				.catch((error) => {
 					console.error(error);

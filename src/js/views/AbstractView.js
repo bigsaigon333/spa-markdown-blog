@@ -7,7 +7,19 @@ export default class {
 		document.title = title;
 	}
 
-	getHtml() {
-		return ``;
+	addEventListener(handlers) {
+		this.handlers = handlers;
+
+		Object.keys(handlers).forEach((key) => {
+			document.addEventListener(key, handlers[key]);
+		});
+	}
+
+	removeEventListener() {
+		if (!this.handlers) return;
+
+		Object.keys(this.handlers).forEach((key) => {
+			document.removeEventListener(key, this.handlers[key]);
+		});
 	}
 }

@@ -2,6 +2,7 @@
 @import "./blog.css";
 @import "./new.css";
 @import "./edit.css";
+@import "./loading.css";
 
 body {
 	max-width: 960px;
@@ -27,6 +28,7 @@ nav {
 	position: sticky;
 	top: 0;
 	background-color: white;
+	z-index: 100;
 }
 
 nav header {
@@ -42,4 +44,8 @@ nav ul {
 nav ul li {
 	margin-right: 20px;
 	font-size: 1.2rem;
+}
+
+.app--blur {
+	opacity: 0.5;
 }

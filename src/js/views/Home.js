@@ -1,17 +1,15 @@
 import { getFormattedDate } from "../tools.js";
 import AbstractView from "./AbstractView.js";
 
-// import "../css/blog.css";
-
 export default class extends AbstractView {
-	constructor(params) {
-		super(params);
+	constructor(props) {
+		super(props);
 		this.setTitle("Home");
 	}
 
 	async getBlogList() {
 		try {
-			const res = await fetch(process.env.API_URL, {
+			const res = await fetch(process.env.API_URL || API_URL, {
 				method: "GET",
 				mode: "cors",
 			});

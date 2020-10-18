@@ -40,7 +40,7 @@ export default class extends AbstractView {
 		<p class="blog__description">${converter.makeHtml(description)}</p>
 		</article>
 		<div class="btn-container">
-			<a href="${id}/edit" data-link class="btn-container__btn">Edit</a>  
+			<a href="${id}/edit" data-link class="btn-container__btn">수정</a>  
 			<a href="/" data-link class="btn-container__btn btn-container__btn--large">Home으로 돌아가기</a>
 		</div>`;
 	}
