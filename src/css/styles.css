@@ -7,6 +7,7 @@ body {
 	max-width: 960px;
 	margin: 0 auto;
 	padding: 0 20px;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 a {
@@ -22,7 +23,6 @@ nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	font-family: "Noto Sans KR", sans-serif;
 	margin-bottom: 20px;
 	position: sticky;
 	top: 0;
