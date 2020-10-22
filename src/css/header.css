@@ -1,0 +1,35 @@
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 100;
+}
+
+nav header {
+	font-size: 2rem;
+	font-weight: 800;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+nav ul a {
+	display: flex;
+}
+
+nav ul li {
+	margin-right: 20px;
+	font-size: 1.2rem;
+	display: flex;
+	align-items: center;
+}
+
+.app--blur {
+	opacity: 0.5;
+}

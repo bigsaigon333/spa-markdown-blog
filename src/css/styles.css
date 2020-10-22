@@ -3,6 +3,7 @@
 @import "./new.css";
 @import "./edit.css";
 @import "./loading.css";
+@import "./header.css";
 
 body {
 	max-width: 960px;
@@ -18,34 +19,4 @@ a {
 
 a:visited {
 	color: #303f9f;
-}
-
-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-	position: sticky;
-	top: 0;
-	background-color: white;
-	z-index: 100;
-}
-
-nav header {
-	font-size: 2rem;
-	font-weight: 800;
-}
-
-nav ul {
-	list-style: none;
-	display: flex;
-}
-
-nav ul li {
-	margin-right: 20px;
-	font-size: 1.2rem;
-}
-
-.app--blur {
-	opacity: 0.5;
 }

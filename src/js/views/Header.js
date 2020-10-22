@@ -9,6 +9,7 @@ export default class extends AbstractView {
 		return `<nav>
         <header>
             <a href="/" data-link> Danny's Blog </a>
+
         </header>
 
         <ul>
@@ -25,6 +26,12 @@ export default class extends AbstractView {
             <a href="/new" data-link>
                 <li>New</li>
             </a>
+
+            <a href='https://app.netlify.com/sites/dannys/deploys' target='_blank'>
+                <li>
+                    <img src='https://api.netlify.com/api/v1/badges/b36ac5cb-7c67-4a65-a0d4-5459ad5b57f2/deploy-status'/ alt='Deploy status badge'>
+                </li>
+          </a>
         </ul>
     </nav>`;
 	}
