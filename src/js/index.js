@@ -45,6 +45,7 @@ const router = async () => {
 	];
 
 	const potentialMatches = routes.map((route) => {
+		console.log(route.path, pathToRegex(route.path));
 		return {
 			route: route,
 			result: location.pathname.match(pathToRegex(route.path)),
@@ -60,8 +61,8 @@ const router = async () => {
 		};
 	}
 
-	// console.log(match);
-	// console.log(getParams(match));
+	console.log(match.route.path);
+	console.log(getParams(match).id);
 
 	if (currView) currView.removeEventListener();
 
