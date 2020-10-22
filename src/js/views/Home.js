@@ -9,7 +9,7 @@ export default class extends AbstractView {
 
 	async getBlogList() {
 		try {
-			const res = await fetch(process.env.API_URL || API_URL, {
+			const res = await fetch(process.env.API_URL, {
 				method: "GET",
 				mode: "cors",
 			});

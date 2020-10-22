@@ -29,18 +29,6 @@ const getParams = (match) => {
 	);
 };
 
-const getQueries = () => {
-	const re = new RegExp(/([^\=?&]+)\=([^\&]+)/g);
-
-	const tmp = [];
-	for (let match of location.search.matchAll(re)) {
-		const [, key, value] = match;
-		tmp.push([key, value]);
-	}
-
-	return Object.fromEntries(tmp);
-};
-
 export const navigateTo = (url) => {
 	history.pushState(null, null, url);
 	router();

@@ -1,3 +1,4 @@
+import { navigateTo } from "../index.js";
 import { getFormattedDate } from "../tools.js";
 import AbstractView from "./AbstractView.js";
 
@@ -21,11 +22,17 @@ export default class extends AbstractView {
 			return data;
 		} catch (error) {
 			console.error(error);
+			return null;
 		}
 	}
 
 	async getHtml() {
 		const post = await this.getPost();
+
+		if (post === null) {
+			navigateTo("/");
+			return;
+		}
 
 		const converter = new showdown.Converter();
 
