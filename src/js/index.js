@@ -7,9 +7,6 @@ import Header from "./views/Header.js";
 
 import "../css/styles.css";
 
-// const BASE_URL = "/spa-markdown-blog";
-const BASE_URL = "";
-
 let currView = "";
 const loadingHtml = new Loading().getHtml();
 const headerHtml = new Header().getHtml();
@@ -62,7 +59,7 @@ const router = async () => {
 	const potentialMatches = routes.map((route) => {
 		return {
 			route: route,
-			result: location.pathname.match(pathToRegex(BASE_URL + route.path)),
+			result: location.pathname.match(pathToRegex(route.path)),
 		};
 	});
 
@@ -101,8 +98,7 @@ async function init() {
 		if (anchor) {
 			event.preventDefault();
 			console.log(anchor.href);
-			// console.log(anchor.origin + anchor.pathname);
-			// navigateTo(anchor.origin + BASE_URL + anchor.pathname);
+
 			navigateTo(anchor.href);
 		}
 	});
