@@ -28,9 +28,13 @@
    - Mobile에서는 BASE_URL을 이용한 github에서의 routing이 적용되지 않는다. 원인 파악 필요함
    - Mobile에서 Home 화면의 Layout이 꺠지고 있다. 원인 파악 필요
 
-1. Front-End와 Back-End의 분리
+1. [x] Front-End와 Back-End의 분리
    - Back-End는 RESTful API Server로 분리
+     - Front-End: dannys.netlify.app
+     - Back-End: dannys-api.heroku.com(/smb)
    - API 형식을 일관성있게 정리
+     - "/": GET, POST
+     - "/:id": GET, PUT, DELETE
 
 2. Home 화면과 New 화면의 미묘한 layout 차이
    - 스크롤 여부에 따른 것으로 어떻게 처리할지 고민
@@ -62,4 +66,5 @@
    - textarea.scrollHeight 만큼 css 의 height 값이 변화하도록 수정
 
 13. Readme 를 화면 별로 Issue 나타내게끔 수정
+
 14. 

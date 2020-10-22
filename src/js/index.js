@@ -3,6 +3,7 @@ import Home from "./views/Home.js";
 import New from "./views/New.js";
 import Post from "./views/Post.js";
 import Loading from "./views/Loading.js";
+import Header from "./views/Header.js";
 
 import "../css/styles.css";
 
@@ -10,7 +11,8 @@ import "../css/styles.css";
 const BASE_URL = "";
 
 let currView = "";
-const loadingView = new Loading();
+const loadingHtml = new Loading().getHtml();
+const headerHtml = new Header().getHtml();
 
 const pathToRegex = (path) =>
 	new RegExp(
@@ -82,9 +84,10 @@ const router = async () => {
 	currView = view;
 
 	document.querySelector("#app").classList.toggle("app--blur");
-	document.querySelector("#app").innerHTML += loadingView.getHtml();
+	document.querySelector("#app").innerHTML += loadingHtml;
 
-	document.querySelector("#app").innerHTML = await view.getHtml();
+	document.querySelector("#app").innerHTML = headerHtml;
+	document.querySelector("#app").innerHTML += await view.getHtml();
 	document.querySelector("#app").classList.toggle("app--blur");
 };
 
