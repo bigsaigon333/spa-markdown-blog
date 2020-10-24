@@ -72,9 +72,10 @@ const router = async () => {
 	document.querySelector("#app").classList.toggle("app--blur");
 	document.querySelector("#app").innerHTML += loadingHtml;
 
-	document.querySelector("#app").innerHTML = headerHtml;
-	document.querySelector("#app").innerHTML += await view.getHtml();
+	// document.querySelector("#app").innerHTML = headerHtml;
+	const innerHtml = await view.getHtml();
 	document.querySelector("#app").classList.toggle("app--blur");
+	document.querySelector("#app").innerHTML = headerHtml + innerHtml;
 };
 
 async function init() {

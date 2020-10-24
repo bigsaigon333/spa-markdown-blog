@@ -46,7 +46,7 @@
 
 5. Home 화면에 1 2 3 4 5 다음 목차 버튼 넣기
 
-6. new화면의 submitHandler와 edit화면의 submitHandler 2개가 모두 document에 eventListener로 add 되어 있다. 이를 어떻게 핸들링 할 것인지? 
+6. [x] new화면의 submitHandler와 edit화면의 submitHandler 2개가 모두 document에 eventListener로 add 되어 있다. 이를 어떻게 핸들링 할 것인지? 
    - index.js 에서 path, view 외에 handler도 불러들일까? 
    - handler는 하나로 하되, event delegation 을 통해서 form을 찾아 적절한 액션을 취하고 있음. -> 적절한 action을 불러들일까?
 
