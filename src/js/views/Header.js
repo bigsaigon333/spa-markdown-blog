@@ -7,24 +7,27 @@ export default class extends AbstractView {
 
 	getHtml() {
 		return `
-        <header>
+        <header class='nav__header'>
             <a href="/" data-link> Danny's Blog </a>
         </header>
 
-        <ul>
-            <a href="/portfolio" data-link>
-                <li>
+        <ul class='nav__list'>
+            <li class='nav__list-item'>
+                <a href="/portfolio" data-link >
                     Portfolio
-                </li>
-            </a>
-            <a href="/about-me" data-link>
-                <li>About me</li>
-            </a> 
+                </a>
+            </li>
+            <li class='nav__list-item'>
+                <a href="/about-me" data-link>
+                    About me
+                </a> 
+            </li>
 
-
-            <a href="/new" data-link>
-                <li>New</li>
-            </a>
+            <li class='nav__list-item'>
+                <a href="/new" data-link>
+                    New
+                </a>
+            </li>
         </ul>
     `;
 	}

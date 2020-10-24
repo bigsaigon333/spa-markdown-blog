@@ -16,6 +16,9 @@ body {
 #app {
 	min-height: 75vh;
 }
+.app--blur {
+	opacity: 0.5;
+}
 
 a {
 	text-decoration: none;

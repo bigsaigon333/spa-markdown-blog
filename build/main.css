@@ -119,7 +119,7 @@
 	animation: 3s linear 0s infinite rotate;
 }
 
-nav {
+.nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -130,12 +130,12 @@ nav {
 	z-index: 100;
 }
 
-nav header {
+.nav__header {
 	font-size: 2rem;
 	font-weight: 800;
 }
 
-nav ul {
+.nav__list {
 	list-style: none;
 	display: flex;
 }
@@ -144,15 +144,31 @@ nav ul a {
 	display: flex;
 }
 
-nav ul li {
+.nav__list-item {
 	margin-right: 20px;
 	font-size: 1.2rem;
 	display: flex;
 	align-items: center;
 }
 
-.app--blur {
-	opacity: 0.5;
+@media (max-width: 580px) {
+	.nav {
+		display: block;
+	}
+	.nav__header {
+		text-align: center;
+	}
+	.nav__list {
+		padding: 0;
+		display: flex;
+		justify-content: space-around;
+	}
+	.nav__list-item {
+		/* width: 33.33%;
+		display: flex;
+		justify-content: center; */
+		margin: 0;
+	}
 }
 
 .footer {
@@ -195,6 +211,9 @@ body {
 }
 #app {
 	min-height: 75vh;
+}
+.app--blur {
+	opacity: 0.5;
 }
 
 a {
