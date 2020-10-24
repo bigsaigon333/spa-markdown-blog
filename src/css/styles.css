@@ -4,6 +4,7 @@
 @import "./edit.css";
 @import "./loading.css";
 @import "./header.css";
+@import "./footer.css";
 
 body {
 	max-width: 960px;
@@ -11,6 +12,9 @@ body {
 	padding: 0 20px;
 	font-family: "Noto Sans KR", sans-serif;
 	overflow: scroll;
+}
+#app {
+	min-height: 75vh;
 }
 
 a {

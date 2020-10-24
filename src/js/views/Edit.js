@@ -92,13 +92,14 @@ export default class Edit extends AbstractView {
 
 	async getHtml() {
 		const post = await this.getPost();
+		console.log(post);
 
 		return `
         <form method="POST" class="new-form" data-id=${post._id} >
 			<div class="new-form__row">
 				
                 <label class="new__title-label new--font-large" for="new__title">Title</label>
-                <input id="new__title" class="new__title new--font-large" type="text" name="title" required autofocus value=${post.title}>
+                <input id="new__title" class="new__title new--font-large" type="text" name="title" required autofocus value="${post.title}">
             </div>
             <div class="new-form__row">
                 <label class="new__desc-label new--font-large" for="new__description">Description</label>

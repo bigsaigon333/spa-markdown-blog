@@ -6,6 +6,7 @@ import Loading from "./views/Loading.js";
 import Header from "./views/Header.js";
 
 import "../css/styles.css";
+import Footer from "./views/Footer.js";
 
 let currView = "";
 const loadingHtml = new Loading().getHtml();
@@ -37,8 +38,8 @@ export const navigateTo = (url) => {
 const router = async () => {
 	const routes = [
 		{ path: "/", view: Home },
-		// { path: "/portfolio", view: Portfolio },
-		// { path: "/blog", view: Blog },
+		{ path: "/portfolio", view: Home }, // TODO: portfolio 화면 만들기
+		{ path: "/about-me", view: Home }, // TODO: about-me 화면 만들기
 		{ path: "/new", view: New },
 		{ path: "/:id", view: Post },
 		{ path: "/:id/edit", view: Edit },
@@ -77,10 +78,11 @@ const router = async () => {
 };
 
 async function init() {
-	document.querySelector("#header").innerHTML = headerHtml;
-	await router();
+	console.log("domcontent loaded");
 
-	console.log("inside init");
+	document.querySelector("nav").innerHTML = headerHtml;
+	await router();
+	document.querySelector("#footer").replaceWith(Footer());
 
 	function handleClickEvent(event) {
 		// const path = event.path.slice(0, -2);
@@ -101,5 +103,6 @@ async function init() {
 }
 
 window.addEventListener("DOMContentLoaded", init);
+window.addEventListener("load", () => console.log("window loaded"));
 
 window.addEventListener("popstate", router);

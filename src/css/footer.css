@@ -1,0 +1,30 @@
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin: 30px auto 10px;
+	width: inherit;
+	height: 30px;
+
+	/* 
+	padding: 0 20px;
+
+	background-color: white;
+
+	position: sticky;
+	bottom: 0;
+    box-sizing: content-box;
+    */
+}
+
+.footer__item {
+	height: inherit;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.footer__item > a {
+	display: flex;
+}
