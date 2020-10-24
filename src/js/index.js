@@ -45,7 +45,7 @@ const router = async () => {
 	];
 
 	const potentialMatches = routes.map((route) => {
-		console.log(route.path, pathToRegex(route.path));
+		// console.log(route.path, pathToRegex(route.path));
 		return {
 			route: route,
 			result: location.pathname.match(pathToRegex(route.path)),
@@ -61,8 +61,8 @@ const router = async () => {
 		};
 	}
 
-	console.log(match.route.path);
-	console.log(getParams(match).id);
+	// console.log(match.route.path);
+	// console.log(getParams(match).id);
 
 	if (currView) currView.removeEventListener();
 
@@ -72,26 +72,32 @@ const router = async () => {
 	document.querySelector("#app").classList.toggle("app--blur");
 	document.querySelector("#app").innerHTML += loadingHtml;
 
-	// document.querySelector("#app").innerHTML = headerHtml;
-	const innerHtml = await view.getHtml();
+	document.querySelector("#app").innerHTML = await view.getHtml();
 	document.querySelector("#app").classList.toggle("app--blur");
-	document.querySelector("#app").innerHTML = headerHtml + innerHtml;
 };
 
 async function init() {
-	router();
+	document.querySelector("#header").innerHTML = headerHtml;
+	await router();
 
-	document.body.addEventListener("click", (event) => {
-		const path = event.path.slice(0, -2);
+	console.log("inside init");
+
+	function handleClickEvent(event) {
+		// const path = event.path.slice(0, -2);
+		const path = event.composedPath().slice(0, -2);
+		// console.log(path);
 		const anchor = path.find((elem) => elem.matches("[data-link]"));
 
 		if (anchor) {
 			event.preventDefault();
-			console.log(anchor.href);
+			// console.log(anchor.href);
 
 			navigateTo(anchor.href);
 		}
-	});
+	}
+
+	document.body.addEventListener("click", handleClickEvent);
+	// document.body.addEventListener("touchstart", handleClickEvent);
 }
 
 window.addEventListener("DOMContentLoaded", init);

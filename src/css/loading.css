@@ -1,8 +1,14 @@
 @keyframes rotate {
-	from {
+	0% {
+		/* opacity: 0; */
+
 		transform: rotate(0);
 	}
-	to {
+	/* 50% {
+		transform: rotate(0);
+		opacity: 0.7;
+	} */
+	100% {
 		transform: rotate(1turn);
 	}
 }
@@ -12,8 +18,11 @@
 	top: 30vh;
 	left: 0;
 	z-index: 999;
-	opacity: 0.3;
+	opacity: 0.7;
+	/* opacity: 0; */
 	width: 100vw;
+	max-width: 960px;
+	margin: 0 auto;
 
 	text-align: center;
 }

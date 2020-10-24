@@ -7,7 +7,7 @@
 		"prestart": "npm run build",
 		"start": "serve build -d -s --cors -l 3000",
 		"preDevStart": "webpack --config webpack.config.dev.js --watch &",
-		"devStart": "npm run preDevStart && serve build -d -s --cors -l 3000 ",
+		"devStart": "npm run preDevStart && serve build -d --cors -l 3000 ",
 		"build": "webpack --config webpack.config.js"
 	},
 	"keywords": [],
@@ -15,7 +15,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"path": "^0.12.7",
-		"serve": "^11.3.2"
+		"serve": "^11.3.2",
+		"showdown": "^1.9.1"
 	},
 	"devDependencies": {
 		"css-loader": "^5.0.0",

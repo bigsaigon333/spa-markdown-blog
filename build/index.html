@@ -11,14 +11,33 @@
 			src="https://kit.fontawesome.com/f70858e33e.js"
 			crossorigin="anonymous"
 		></script>
-		<script
-			defer
-			src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
-		></script>
+
 		<script type="module" src="/index.js"></script>
+
 		<title>Document</title>
 	</head>
 	<body>
+		<!-- <div id="test-container">
+			<a id="test" href="/">TEST Component</a>
+		</div> -->
+		<div id="header"></div>
 		<div id="app"></div>
+		<!-- <script>
+			document
+				.querySelector("#test-container")
+				.addEventListener("touchstart", (e) => {
+					console.log("[touchstart] catch anchor");
+					console.log(e.target);
+					// e.preventDefault();
+				});
+
+			document
+				.querySelector("#test-container")
+				.addEventListener("click", (e) => {
+					console.log("[click] catch anchor");
+					console.log(e.composedPath());
+					e.preventDefault();
+				});
+		</script> -->
 	</body>
 </html>

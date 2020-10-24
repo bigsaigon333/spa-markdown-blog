@@ -1,6 +1,7 @@
 import { navigateTo } from "../index.js";
 import { getFormattedDate } from "../tools.js";
 import AbstractView from "./AbstractView.js";
+import showdown from "showdown";
 
 export default class extends AbstractView {
 	constructor(props) {

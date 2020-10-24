@@ -31,13 +31,13 @@ export default class extends AbstractView {
 				return (
 					acc +
 					`<article class="blog-container">
-					<a href="/${id}" data-link>
-					<h1 class="blog__title">${title}</h1>
-				<h3 class="blog__createdAt">${getFormattedDate(createdAt)}</h3>
-				<!-- <p class="blog__description">${description}</p> -->
-				</a>
-				</article>
-				<hr>`
+						<a href="/${id}" data-link >
+							<h1 class="blog__title">${title}</h1>
+							<h3 class="blog__createdAt">${getFormattedDate(createdAt)}</h3>
+						<!-- <p class="blog__description">${description}</p> -->
+						</a>
+					</article>
+					<hr>`
 				);
 			}, "");
 		} catch (error) {
