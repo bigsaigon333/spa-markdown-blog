@@ -1,3 +1,5 @@
+import { isLoggedIn, logout } from "../api/loginApi";
+import { navigateTo } from "../router";
 import AbstractView from "./AbstractView";
 
 export default class extends AbstractView {
@@ -5,30 +7,64 @@ export default class extends AbstractView {
 		super(props);
 	}
 
-	getHtml() {
-		return `
-        <header class='nav__header'>
-            <a href="/" data-link> Danny's Blog </a>
-        </header>
+	render() {
+		const $nav = document.createElement("nav");
+		$nav.id = "nav";
+		$nav.className = "nav";
 
-        <ul class='nav__list'>
-            <li class='nav__list-item'>
-                <a href="/portfolio" data-link >
-                    Portfolio
-                </a>
-            </li>
-            <li class='nav__list-item'>
-                <a href="/about-me" data-link>
-                    About me
-                </a> 
-            </li>
+		const $navHeader = document.createElement("header");
+		$navHeader.className = "nav__header";
+		$navHeader.innerHTML = `<a href="/" data-link> Danny's Blog </a>`;
 
-            <li class='nav__list-item'>
-                <a href="/new" data-link>
-                    New
-                </a>
-            </li>
-        </ul>
-    `;
+		const $navList = document.createElement("ul");
+		$navList.className = "nav__list";
+
+		const $portfolioListItem = document.createElement("li");
+		$portfolioListItem.className = "nav__list-item";
+		$portfolioListItem.innerHTML = `
+        <a href="/portfolio" data-link >
+            Portfolio
+        </a>`;
+
+		const $aboutMeListItem = document.createElement("li");
+		$aboutMeListItem.className = "nav__list-item";
+		$aboutMeListItem.innerHTML = `
+        <a href="/about-me" data-link >
+            About me  
+        </a>`;
+
+		const $newListItem = document.createElement("li");
+		$newListItem.className = "nav__list-item";
+		$newListItem.innerHTML = `
+        <a href="/new" data-link >
+            New
+        </a>`;
+
+		const $loginListItem = document.createElement("li");
+		$loginListItem.className = "nav__list-item";
+		$loginListItem.innerHTML = `
+        <a href="/login" data-link >
+            Login
+        </a>`;
+
+		const $logoutListItem = document.createElement("li");
+		$logoutListItem.className = "nav__list-item";
+		$logoutListItem.innerText = "Logout";
+		$logoutListItem.addEventListener("click", async (e) => {
+			const res = await logout();
+			if (res) {
+				console.log("Logout Succeed");
+				navigateTo("/");
+			} else console.log("Logout Failed");
+		});
+
+		$navList.append($portfolioListItem, $aboutMeListItem);
+
+		if (isLoggedIn()) $navList.append($newListItem, $logoutListItem);
+		else $navList.append($loginListItem);
+
+		$nav.append($navHeader, $navList);
+
+		return $nav;
 	}
 }

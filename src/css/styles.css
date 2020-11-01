@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
-@import "./blog.css";
+@import "./post.css";
 @import "./new.css";
 @import "./edit.css";
 @import "./loading.css";
@@ -11,7 +11,7 @@ body {
 	margin: 0 auto;
 	padding: 0 20px;
 	font-family: "Noto Sans KR", sans-serif;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 #app {
 	min-height: 75vh;

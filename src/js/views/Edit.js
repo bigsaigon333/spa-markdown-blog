@@ -1,101 +1,60 @@
 import AbstractView from "./AbstractView.js";
-import { navigateTo } from "../index.js";
+import { navigateTo } from "../router.js";
+import { getPost, putPost, deletePost } from "../api/smbApi.js";
 
 export default class Edit extends AbstractView {
 	constructor(props) {
 		super(props);
 		this.setTitle("Edit");
-
-		this.addEventListener({ submit: this.submitHandler.bind(this) });
 	}
 
-	submitHandler(event) {
-		// console.log(event.target.className);
-		if (event.target.className == "new-form") {
-			event.preventDefault();
-			// console.log(event.target);
-			if (!confirm("수정하시겠습니까?")) return;
+	async handleEdit(event) {
+		event.preventDefault();
+		// console.log(event.target);
+		if (!confirm("수정하시겠습니까?")) return;
 
-			const form = document.querySelector(".new-form");
-			const FD = new FormData(form);
-			const body = Object.fromEntries(FD.entries());
-			// console.log(body);
-
-			const id = event.target.dataset.id;
-			console.log(id);
-			// console.log(`http://localhost:3000/${this.props.id}/edit.json`);
-
-			fetch(`${process.env.API_URL}/${id}`, {
-				method: "PUT",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(body),
-			})
-				.then((res) => {
-					if (!res.ok) {
-						console.error(res);
-						throw new Error("Network Error");
-					}
-					return res.json();
-				})
-				.then((data) => {
-					console.log(data);
-
-					navigateTo(`${location.origin}/${id}`);
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		} else if (event.target.className == "delete-form") {
-			event.preventDefault();
-			// console.log(event.target);
-			if (!confirm("삭제하시겠습니까?")) return;
-
-			const form = document.querySelector(".delete-form");
-
-			const id = event.target.dataset.id;
-			console.log(id);
-
-			fetch(`${process.env.API_URL}/${id}`, {
-				method: "DELETE",
-				headers: { "Content-Type": "application/json" },
-			})
-				.then((res) => {
-					if (!res.ok) {
-						console.error(res);
-						throw new Error("Network Error");
-					}
-					return res.json();
-				})
-				.then((data) => {
-					console.log(data);
-					navigateTo(`${location.origin}/`);
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		}
-	}
-
-	async getPost() {
 		try {
-			const res = await fetch(`${process.env.API_URL}/${this.props.id}`, {
-				method: "GET",
-			});
+			const $editForm = document.querySelector("#edit-form");
+			const FD = new FormData($editForm);
+			const body = Object.fromEntries(FD.entries());
 
-			if (!res.ok) throw new Error("Network Connection Error");
-			const data = await res.json();
-			return data;
+			const id = event.target.dataset.id;
+			const result = await putPost(id, body);
+			console.log(result);
+
+			if (result != null) navigateTo(`/${id}`);
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	async getHtml() {
-		const post = await this.getPost();
-		console.log(post);
+	async handleDelete(event) {
+		event.preventDefault();
+		if (!confirm("삭제하시겠습니까?")) return;
 
-		return `
-        <form method="POST" class="new-form" data-id=${post._id} >
+		try {
+			const id = event.target.dataset.id;
+			const result = await deletePost(id);
+
+			console.log(result);
+
+			if (result != null) navigateTo("/");
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	async render() {
+		const post = await getPost(this.props.id);
+
+		const $editForm = document.createElement("form");
+		$editForm.id = "edit-form";
+		$editForm.className = "new-form";
+		$editForm.setAttribute("method", "POST");
+		$editForm.setAttribute("data-id", post._id);
+		// $editForm.addEventListener("submit", this.handleSubmit);
+
+		$editForm.innerHTML = `
 			<div class="new-form__row">
 				
                 <label class="new__title-label new--font-large" for="new__title">Title</label>
@@ -105,15 +64,27 @@ export default class Edit extends AbstractView {
                 <label class="new__desc-label new--font-large" for="new__description">Description</label>
 				<textarea id="new__description" class="new__description new--font-normal " name="description" rows="20" required>${post.description}</textarea>
 			</div>
-			<div class="btn-container btn-container--flow-reverse">
+		
+		`;
 
-			<input class="new__submit-btn new--font-large btn-container__btn" type="submit" value="수정">
-			</div>
-		</form>
-		<form class="delete-form" data-id="${post._id}">
-			<button class="btn-container__btn delete-btn"  >삭제</button>
-		</form>
+		const $btnContainer = document.createElement("div");
+		$btnContainer.className = "btn-container";
 
-        `;
+		const $deleteBtn = document.createElement("button");
+		$deleteBtn.className = "btn-container__btn delete-btn";
+		$deleteBtn.setAttribute("data-id", post._id);
+		$deleteBtn.innerText = "삭제";
+		$deleteBtn.addEventListener("click", this.handleDelete);
+
+		const $editBtn = document.createElement("button");
+		$editBtn.className = "btn-container__btn delete-btn";
+		$editBtn.setAttribute("data-id", post._id);
+		$editBtn.innerText = "수정";
+		$editBtn.addEventListener("click", this.handleEdit);
+
+		$btnContainer.append($deleteBtn, $editBtn);
+		$editForm.append($btnContainer);
+
+		return $editForm;
 	}
 }

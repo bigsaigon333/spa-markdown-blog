@@ -1,13 +1,13 @@
 @import url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap);
-.blog-container {
+.post-container {
 	margin-bottom: 40px;
 	overflow: hidden;
 }
 
-.blog__title {
+.post__title {
 	font-size: 2rem;
 }
-.blog__createdAt {
+.post__createdAt {
 	text-align: right;
 	font-size: 1rem;
 	font-weight: 400;
@@ -106,7 +106,7 @@
 	top: 30vh;
 	/* left: 0; */
 	z-index: 999;
-	opacity: 0.7;
+	opacity: 1;
 	/* opacity: 0; */
 	width: 100vw;
 	max-width: 960px;
@@ -207,7 +207,7 @@ body {
 	margin: 0 auto;
 	padding: 0 20px;
 	font-family: "Noto Sans KR", sans-serif;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 #app {
 	min-height: 75vh;
