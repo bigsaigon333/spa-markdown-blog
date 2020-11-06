@@ -5,9 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"prestart": "npm run build",
-		"start": "serve build -d -s --cors -l 3000",
+		"start": "serve build -d -s -C -l 3000",
 		"preDevStart": "webpack --config webpack.config.dev.js --watch &",
-		"devStart": "npm run preDevStart && serve build -d --cors -l 3000 ",
+		"devStart": "npm run preDevStart && serve build -d -C  -u -s -l 3000 ",
 		"build": "webpack --config webpack.config.js"
 	},
 	"keywords": [],

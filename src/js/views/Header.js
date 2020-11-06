@@ -48,7 +48,8 @@ export default class extends AbstractView {
         </a>`;
 
 		const $logoutListItem = document.createElement("li");
-		$logoutListItem.className = "nav__list-item";
+
+		$logoutListItem.classList.add("nav__list-item", "logout");
 		$logoutListItem.innerText = "Logout";
 		$logoutListItem.addEventListener("click", async (e) => {
 			const res = await logout();

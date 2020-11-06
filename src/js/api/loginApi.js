@@ -19,7 +19,7 @@ export async function login({ username, password }) {
 		if (!res.ok) throw new Error(`${res.status} ${res.statusText} Error`);
 
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 
 		accessToken = data.accessToken;
 		refreshToken = data.refreshToken;

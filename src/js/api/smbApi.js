@@ -5,18 +5,13 @@ const API_URL = process.env.API_URL;
 
 export async function getPost(id) {
 	try {
-		let doFetch;
-		if (id == null) {
-			doFetch = () =>
-				fetch(`${API_URL}`, {
-					method: "GET",
-				});
-		} else {
-			doFetch = () =>
-				fetch(`${API_URL}/${id}`, {
-					method: "GET",
-				});
-		}
+		const getPostApiUrl = API_URL + "/" + (id == null ? "" : id);
+
+		let doFetch = () =>
+			fetch(getPostApiUrl, {
+				method: "GET",
+			});
+
 		const res = await doFetch();
 
 		if (!res.ok) {
@@ -51,7 +46,7 @@ export async function postPost(body) {
 				return navigateTo("/login");
 			} else if (res.status === 403) {
 				const ret = await silentRefresh();
-				console.log(ret);
+				// console.log(ret);
 				if (ret) res = await doFetch();
 				else return navigateTo("/login");
 			} else throw new Error(`${res.status} ${res.statusText} Error`);

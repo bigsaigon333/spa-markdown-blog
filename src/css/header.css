@@ -30,6 +30,11 @@ nav ul a {
 	align-items: center;
 }
 
+.logout {
+	cursor: pointer;
+	color: #303f9f;
+}
+
 @media (max-width: 580px) {
 	.nav {
 		display: block;

@@ -10,7 +10,6 @@ export default class extends AbstractView {
 
 	async handleLogin(event) {
 		event.preventDefault();
-		console.log("handleLogin!!");
 
 		const username = document.querySelector("#login-form #username").value;
 		const password = document.querySelector("#login-form #password").value;
