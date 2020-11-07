@@ -12,7 +12,7 @@ export default class extends AbstractView {
 		try {
 			const postList = await getPost();
 
-			const $postList = document.createElement("div");
+			const $postList = document.createElement("section");
 			$postList.className = "post-list";
 
 			$postList.innerHTML = postList.reduce((acc, curr) => {

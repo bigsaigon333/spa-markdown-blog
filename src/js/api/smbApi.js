@@ -10,6 +10,7 @@ export async function getPost(id) {
 		let doFetch = () =>
 			fetch(getPostApiUrl, {
 				method: "GET",
+				cache: "no-cache",
 			});
 
 		const res = await doFetch();
