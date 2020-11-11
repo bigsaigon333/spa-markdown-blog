@@ -20,6 +20,8 @@ export default class extends AbstractView {
     - Vanilla JS만으로 구현한 블로그 Single Page Application\n
     - RESTful API Server와 비동기통신을 통하여 데이터 수신\n
     - 블로그 글은 markdown language로 작성하여, showdownJS를 통하여 HTML으로 변환함\n
+    - 로그인은 관리자만 할 수 있으며(회원가입 기능 구현X), 관리자 로그인 후 마크다운 language로 글 작성, 기존 글 수정 가능 <br>
+      (id: admin_smb pw: smb27017)
     - netlify로 배포\n
     \n
 3. Github: [spa-markdown-blog](https://github.com/bigsaigon333/spa-markdown-blog)\n
@@ -33,6 +35,7 @@ export default class extends AbstractView {
 1. Language: Vanilla JS\n
 2. Description\n
     - 블로그 Single Page Application의 Backend\n
+    - 관리자 로그인 기능은 JWT로 구현
     - heroku를 통하여 배포\n
     - MongoDB 및 MongoAtlas 사용\n
 3. Github: [dannys-api](https://github.com/bigsaigon333/dannys-api)\n
