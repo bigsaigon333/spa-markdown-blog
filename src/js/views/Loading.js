@@ -13,7 +13,7 @@ export default class Loading extends AbstractView {
 		`;
 
 		$parent.appendChild($loading);
-		this.setState({ visible: true });
+		this.setState({ visible: false });
 	}
 
 	render() {

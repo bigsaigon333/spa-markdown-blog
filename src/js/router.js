@@ -8,6 +8,7 @@ import Post from "./views/Post";
 import Loading from "./views/Loading";
 import Footer from "./views/Footer";
 import AbstractView from "./views/AbstractView";
+import Portfolio from "./views/Portfolio";
 
 export default class Router extends AbstractView {
 	constructor(props) {
@@ -54,8 +55,8 @@ export default class Router extends AbstractView {
 	getMatchedRoute(url) {
 		const routes = [
 			{ path: "/", view: Home },
-			{ path: "/portfolio", view: Home }, // TODO: portfolio 화면 만들기
-			{ path: "/about-me", view: Home }, // TODO: about-me 화면 만들기
+			{ path: "/portfolio", view: Portfolio },
+			// { path: "/about-me", view: Home }, // TODO: about-me 화면 만들기
 			{ path: "/login", view: Login },
 			{ path: "/new", view: New },
 

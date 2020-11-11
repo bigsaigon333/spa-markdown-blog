@@ -66,7 +66,7 @@ export default class Header extends AbstractView {
 
 		$navList.append(
 			$portfolioListItem,
-			$aboutMeListItem,
+			// $aboutMeListItem,
 			$newListItem,
 			$loginListItem,
 			$logoutListItem
