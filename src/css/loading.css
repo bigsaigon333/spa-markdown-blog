@@ -30,3 +30,7 @@
 .spinner--rotate {
 	animation: 3s linear 0s infinite rotate;
 }
+
+.loading--hidden {
+	display: none;
+}

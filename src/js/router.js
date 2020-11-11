@@ -5,80 +5,146 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import New from "./views/New";
 import Post from "./views/Post";
+import Loading from "./views/Loading";
+import Footer from "./views/Footer";
+import AbstractView from "./views/AbstractView";
 
-let $oldView;
-let loginStatus;
+export default class Router extends AbstractView {
+	constructor(props) {
+		super(props);
 
-export function navigateTo(url) {
-	history.pushState(null, null, url);
-	router();
-}
+		const loginStatus = isLoggedIn();
 
-export default async function router() {
-	const routes = [
-		{ path: "/", view: Home },
-		{ path: "/portfolio", view: Home }, // TODO: portfolio 화면 만들기
-		{ path: "/about-me", view: Home }, // TODO: about-me 화면 만들기
-		{ path: "/login", view: Login },
-		{ path: "/new", view: New },
+		const $app = document.querySelector("#app");
+		this.$app = $app;
 
-		// /:id should be always all the way down
-		{ path: "/:id/edit", view: Edit },
-		{ path: "/:id", view: Post },
-	];
+		// loading
+		const loading = new Loading({ $parent: $app });
+		this.loading = loading;
 
-	const potentialMatches = routes.map((route) => {
-		return {
-			route: route,
-			result: location.pathname.match(pathToRegex(route.path)),
-		};
-	});
+		//nav
+		const header = new Header({
+			$parent: $app,
+			isLoggedIn: loginStatus,
+			handleLoginStatus: (isLoggedIn) => {
+				this.header.setState({ isLoggedIn: isLoggedIn });
+				this.setState({ isLoggedIn: isLoggedIn });
+			},
 
-	let match = potentialMatches.find((route) => route.result !== null);
+			navigateTo: (url) => this.navigateTo(url),
+		});
+		this.header = header;
 
-	if (!match) {
-		match = {
-			route: routes[0],
-			result: [location.pathname],
-		};
+		// main
+		const $main = document.createElement("main");
+		this.$main = $main;
+		$app.appendChild($main);
+
+		//footer
+		const footer = new Footer({ $parent: $app });
+		this.footer = footer;
+
+		const match = this.getMatchedRoute(location.pathname);
+		const params = this.getParams(match);
+
+		this.setState({ ...match.route, params, isLoggedIn: loginStatus });
+		// this.render();
 	}
 
-	if (loginStatus !== isLoggedIn()) {
-		loginStatus = isLoggedIn();
+	getMatchedRoute(url) {
+		const routes = [
+			{ path: "/", view: Home },
+			{ path: "/portfolio", view: Home }, // TODO: portfolio 화면 만들기
+			{ path: "/about-me", view: Home }, // TODO: about-me 화면 만들기
+			{ path: "/login", view: Login },
+			{ path: "/new", view: New },
 
-		const $nav = document.querySelector("nav");
-		$nav.replaceWith(new Header().render());
+			// /:id should be always all the way down
+			{ path: "/:id/edit", view: Edit },
+			{ path: "/:id", view: Post },
+		];
+
+		const potentialMatches = routes.map((route) => {
+			return {
+				route: route,
+				result: location.pathname.match(this.pathToRegex(route.path)),
+			};
+		});
+
+		let match = potentialMatches.find((route) => route.result !== null);
+
+		if (!match) {
+			match = {
+				route: routes[0],
+				result: [location.pathname],
+			};
+		}
+
+		return match;
 	}
 
-	const View = new match.route.view(getParams(match));
-	const $app = document.querySelector("#app");
+	navigateTo(url) {
+		history.pushState(null, null, url);
 
-	// App.classList.toggle("app--blur");
-	// App.innerHTML += loadingHtml;
+		const match = this.getMatchedRoute(url);
+		const params = this.getParams(match);
 
-	const $newView = await View.render();
-	if ($oldView == null) $app.appendChild($newView);
-	else $app.replaceChild($newView, $oldView);
+		this.setState({ ...match.route, params });
+	}
 
-	$oldView = $newView;
-	// App.classList.toggle("app--blur");
-}
+	pathToRegex(path) {
+		return new RegExp(
+			"^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "([^/]+)") + "$"
+		);
+	}
 
-function pathToRegex(path) {
-	return new RegExp(
-		"^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "([^/]+)") + "$"
-	);
-}
+	getParams(match) {
+		const values = match.result.slice(1);
+		const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(
+			(result) => result[1]
+		);
 
-function getParams(match) {
-	const values = match.result.slice(1);
-	const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(
-		(result) => result[1]
-	);
+		return Object.fromEntries(
+			keys.map((key, i) => {
+				return [key, values[i]];
+			})
+		);
+	}
 
-	return Object.fromEntries(
-		keys.map((key, i) => {
-			return [key, values[i]];
-		})
-	);
+	render() {
+		const { path, view, params, isLoggedIn } = this.state;
+		this.$main.childNodes.forEach((child) => child.remove());
+
+		if ((path === "/new" || path === "/:id/edit") && !isLoggedIn) {
+			this.navigateTo("/");
+			return;
+		} else if (path === "/login") {
+			if (isLoggedIn) {
+				this.navigateTo("/");
+				return;
+			} else {
+				new view({
+					$parent: this.$main,
+					...params,
+					isLoggedIn,
+					handleLoginStatus: (isLoggedIn) => {
+						this.header.setState({ isLoggedIn: isLoggedIn });
+						this.setState({ isLoggedIn: isLoggedIn });
+					},
+					navigateTo: (url) => this.navigateTo(url),
+					handleLoadingStatus: (isVisible) =>
+						this.loading.setState({ visible: isVisible }),
+				});
+			}
+		} else {
+			new view({
+				$parent: this.$main,
+				...params,
+				isLoggedIn,
+				navigateTo: (url) => this.navigateTo(url),
+				handleLoadingStatus: (isVisible) =>
+					this.loading.setState({ visible: isVisible }),
+			});
+		}
+	}
 }

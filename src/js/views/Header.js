@@ -1,13 +1,11 @@
-import { isLoggedIn, logout } from "../api/loginApi";
-import { navigateTo } from "../router";
+import { logout } from "../api/loginApi";
 import AbstractView from "./AbstractView";
 
-export default class extends AbstractView {
+export default class Header extends AbstractView {
 	constructor(props) {
 		super(props);
-	}
+		const { $parent, isLoggedIn } = props;
 
-	render() {
 		const $nav = document.createElement("nav");
 		$nav.id = "nav";
 		$nav.className = "nav";
@@ -18,6 +16,7 @@ export default class extends AbstractView {
 
 		const $navList = document.createElement("ul");
 		$navList.className = "nav__list";
+		this.$navList = $navList;
 
 		const $portfolioListItem = document.createElement("li");
 		$portfolioListItem.className = "nav__list-item";
@@ -38,14 +37,16 @@ export default class extends AbstractView {
 		$newListItem.innerHTML = `
         <a href="/new" data-link >
             New
-        </a>`;
+		</a>`;
+		this.$newListItem = $newListItem;
 
 		const $loginListItem = document.createElement("li");
 		$loginListItem.className = "nav__list-item";
 		$loginListItem.innerHTML = `
         <a href="/login" data-link >
             Login
-        </a>`;
+		</a>`;
+		this.$loginListItem = $loginListItem;
 
 		const $logoutListItem = document.createElement("li");
 
@@ -55,17 +56,37 @@ export default class extends AbstractView {
 			const res = await logout();
 			if (res) {
 				console.log("Logout Succeed");
-				navigateTo("/");
+
+				this.props.handleLoginStatus(false);
+				this.props.navigateTo("/");
 			} else console.log("Logout Failed");
 		});
 
-		$navList.append($portfolioListItem, $aboutMeListItem);
+		this.$logoutListItem = $logoutListItem;
 
-		if (isLoggedIn()) $navList.append($newListItem, $logoutListItem);
-		else $navList.append($loginListItem);
-
+		$navList.append(
+			$portfolioListItem,
+			$aboutMeListItem,
+			$newListItem,
+			$loginListItem,
+			$logoutListItem
+		);
 		$nav.append($navHeader, $navList);
 
-		return $nav;
+		$parent.appendChild($nav);
+
+		this.setState({ isLoggedIn });
+		// this.render();
+	}
+
+	render() {
+		if (this.state.isLoggedIn) {
+			this.$navList.append(this.$newListItem, this.$logoutListItem);
+			this.$navList.removeChild(this.$loginListItem);
+		} else {
+			this.$navList.appendChild(this.$loginListItem);
+			this.$navList.removeChild(this.$newListItem);
+			this.$navList.removeChild(this.$logoutListItem);
+		}
 	}
 }
